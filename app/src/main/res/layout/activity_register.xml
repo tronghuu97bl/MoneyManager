@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterActivity">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/logo" />
+
+        <EditText
+            android:id="@+id/edittext_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/logo"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="30dp"
+            android:hint="Email"
+            android:inputType="textEmailAddress" />
+
+        <EditText
+            android:id="@+id/edittext_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edittext_email"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="30dp"
+            android:hint="Password"
+            android:inputType="textPassword" />
+
+        <EditText
+            android:id="@+id/edittext_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edittext_password"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="30dp"
+            android:hint="Name"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/edittext_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edittext_name"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="30dp"
+            android:hint="Address"
+            android:inputType="text"
+            android:lines="2" />
+
+        <RelativeLayout
+            android:id="@+id/rll_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edittext_address"
+            android:layout_centerHorizontal="true">
+
+            <ImageView
+                android:id="@+id/img1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@mipmap/boy" />
+
+            <ImageView
+                android:id="@+id/img2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/img1"
+                android:src="@mipmap/girl" />
+
+            <ImageView
+                android:id="@+id/img3"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/img2"
+                android:src="@mipmap/man" />
+
+            <ImageView
+                android:id="@+id/img4"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/img3"
+                android:src="@mipmap/secon_girl" />
+
+            <ImageView
+                android:id="@+id/img5"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/img4"
+                android:src="@mipmap/woman" />
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/button_rgt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rll_img"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:background="@color/orange"
+            android:text="Register" />
+
+        <TextView
+            android:id="@+id/tv_warning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/button_rgt"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="Warning"
+            android:textColor="@color/red"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/button_rgt"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:text="Have an account? login from here"
+            android:textColor="@color/blue" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="15dp"
+        android:text="Dev"
+        android:textColor="@color/gray" />
+</RelativeLayout>

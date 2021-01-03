@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    tools:context=".AddSendReceiveActivity">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_add_tranfer_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="Add Send/Receive"
+                android:textSize="30dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_add_tranfer_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_add_tranfer_title"
+                android:layout_marginTop="30dp"
+                android:text="Amount:"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edit_add_tranfer_amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_add_tranfer_amount"
+                android:layout_marginTop="5dp"
+                android:inputType="numberDecimal" />
+
+            <TextView
+                android:id="@+id/tv_add_tranfer_receipt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/edit_add_tranfer_amount"
+                android:layout_marginTop="10dp"
+                android:text="Receipt:"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edit_add_tranfer_receipt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_add_tranfer_receipt"
+                android:layout_marginTop="5dp"
+                android:inputType="text" />
+
+            <TextView
+                android:id="@+id/tv_add_tranfer_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/edit_add_tranfer_receipt"
+                android:layout_marginTop="10dp"
+                android:text="Date:"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:id="@+id/rll_add_tranfer_pick_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_add_tranfer_date"
+                android:layout_marginTop="5dp">
+
+                <EditText
+                    android:id="@+id/edit_add_tranfer_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/button_add_tranfer_date"
+                    android:clickable="false"
+                    android:inputType="date" />
+
+                <Button
+                    android:id="@+id/button_add_tranfer_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="PICK DATE" />
+            </RelativeLayout>
+
+            <RadioGroup
+                android:id="@+id/rdg_add_tranfer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rll_add_tranfer_pick_date"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rd_add_tranfer_send"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="Send" />
+
+                <RadioButton
+                    android:id="@+id/rd_add_tranfer_receive"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="Receive" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/tv_add_tranfer_des"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rdg_add_tranfer"
+                android:layout_marginTop="30dp"
+                android:text="Description:"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edit_add_tranfer_des"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_add_tranfer_des"
+                android:layout_marginTop="5dp"
+                android:lines="3" />
+
+            <TextView
+                android:id="@+id/tv_add_tranfer_warning"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/edit_add_tranfer_des"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/red"
+                android:textSize="16sp"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/button_add_tranfer_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_add_tranfer_warning"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:background="@color/orange"
+                android:text="ADD"
+                android:textSize="16sp" />
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
+</RelativeLayout>

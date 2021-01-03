@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.stats.StatsFragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="60dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/barChartActivities"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp" />
+
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/pieChartLoans"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:layout_below="@+id/barChartActivities"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp" />
+
+        </RelativeLayout>
+
+    </androidx.core.widget.NestedScrollView>
+</RelativeLayout>

@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    tools:context=".AddLoanActivity">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_add_loan_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="Add Loan"
+                android:textSize="30dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_add_loan_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_add_loan_title"
+                android:layout_marginTop="10dp"
+                android:text="Name:"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edit_add_loan_name"
+                android:hint="name of the lender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_add_loan_name"
+                android:layout_marginTop="5dp" />
+
+            <TextView
+                android:id="@+id/tv_add_loan_initial_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/edit_add_loan_name"
+                android:layout_marginTop="10dp"
+                android:text="Initial amount:"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edit_add_loan_initial_amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_add_loan_initial_amount"
+                android:layout_marginTop="5dp"
+                android:inputType="numberDecimal" />
+
+            <TextView
+                android:id="@+id/tv_add_loan_monthly_roi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/edit_add_loan_initial_amount"
+                android:layout_marginTop="10dp"
+                android:text="Monthly ROI:"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edit_add_loan_monthly_roi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_add_loan_monthly_roi"
+                android:layout_marginTop="5dp"
+                android:inputType="numberDecimal" />
+
+            <TextView
+                android:id="@+id/tv_add_loan_monthly_payment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/edit_add_loan_monthly_roi"
+                android:layout_marginTop="10dp"
+                android:text="Monthly Payment:"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edit_add_loan_monthly_payment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_add_loan_monthly_payment"
+                android:layout_marginTop="5dp"
+                android:inputType="numberDecimal" />
+
+            <TextView
+                android:id="@+id/tv_add_loan_init_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/edit_add_loan_monthly_payment"
+                android:layout_marginTop="10dp"
+                android:text="Initial date:"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:id="@+id/rll_add_loan_init_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_add_loan_init_date">
+
+                <EditText
+                    android:id="@+id/edit_add_loan_init_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_toLeftOf="@+id/button_add_loan_pick_init_date"
+                    android:inputType="date" />
+
+                <Button
+                    android:id="@+id/button_add_loan_pick_init_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="PICK DATE" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_add_loan_finish_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rll_add_loan_init_date"
+                android:layout_marginTop="10dp"
+                android:text="Finish date:"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:id="@+id/rll_add_loan_finish_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_add_loan_finish_date">
+
+                <EditText
+                    android:id="@+id/edit_add_loan_finish_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_toLeftOf="@+id/button_add_loan_pick_finish_date"
+                    android:inputType="date" />
+
+                <Button
+                    android:id="@+id/button_add_loan_pick_finish_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="PICK DATE" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_add_loan_warning"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rll_add_loan_finish_date"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:text="warning"
+                android:textColor="@color/red"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/button_add_loan_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_add_loan_warning"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:background="@color/orange"
+                android:text="ADD" />
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
+</RelativeLayout>

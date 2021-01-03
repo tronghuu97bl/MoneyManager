@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">MoneyManager</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_stats">Stats</string>
+    <string name="title_transaction">Transaction</string>
+    <string name="title_loan">Loan</string>
+    <string name="title_investment">Investment</string>
+</resources>
