@@ -18,8 +18,15 @@ import com.tth.moneymanager.R;
 import com.tth.moneymanager.Util;
 import com.tth.moneymanager.adapter.LoanAdapter;
 
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 public class LoanFragment extends Fragment {
     private LoanViewModel loanViewModel;
@@ -33,7 +40,21 @@ public class LoanFragment extends Fragment {
         loanViewModel = ViewModelProviders.of(this).get(LoanViewModel.class);
         View root = inflater.inflate(R.layout.fragment_loan, container, false);
         util = new Util(getContext());
-        currentUser = util.userAuthenLogin();
+        try {
+            currentUser = util.userAuthenLogin();
+        } catch (InvalidKeySpecException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (IllegalBlockSizeException e) {
+            e.printStackTrace();
+        } catch (InvalidKeyException e) {
+            e.printStackTrace();
+        } catch (BadPaddingException e) {
+            e.printStackTrace();
+        } catch (NoSuchPaddingException e) {
+            e.printStackTrace();
+        }
         loanViewModel.getListLoan(getContext(), currentUser.getId()).observe(getViewLifecycleOwner(), new Observer<List<Loan>>() {
             @Override
             public void onChanged(List<Loan> s) {

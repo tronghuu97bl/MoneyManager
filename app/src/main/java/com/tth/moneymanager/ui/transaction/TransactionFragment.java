@@ -22,8 +22,15 @@ import com.tth.moneymanager.R;
 import com.tth.moneymanager.Util;
 import com.tth.moneymanager.adapter.TransactionAdapter;
 
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 public class TransactionFragment extends Fragment {
 
@@ -48,7 +55,21 @@ public class TransactionFragment extends Fragment {
         textView = root.findViewById(R.id.txtNoTransaction);
         recyclerView = root.findViewById(R.id.transactionRecView);
         util = new Util(getContext());
-        currentUser = util.userAuthenLogin();
+        try {
+            currentUser = util.userAuthenLogin();
+        } catch (InvalidKeySpecException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (IllegalBlockSizeException e) {
+            e.printStackTrace();
+        } catch (InvalidKeyException e) {
+            e.printStackTrace();
+        } catch (BadPaddingException e) {
+            e.printStackTrace();
+        } catch (NoSuchPaddingException e) {
+            e.printStackTrace();
+        }
         db = new DbHelper(getContext());
         adapter = new TransactionAdapter();
         recyclerView.setAdapter(adapter);

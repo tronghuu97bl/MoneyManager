@@ -43,12 +43,19 @@ import com.tth.moneymanager.R;
 import com.tth.moneymanager.Util;
 import com.tth.moneymanager.adapter.TransactionAdapter;
 
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 public class HomeFragment extends Fragment {
 
@@ -71,7 +78,21 @@ public class HomeFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         initView(root);
         util = new Util(getContext());
-        currentUser = util.userAuthenLogin();
+        try {
+            currentUser = util.userAuthenLogin();
+        } catch (InvalidKeySpecException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (IllegalBlockSizeException e) {
+            e.printStackTrace();
+        } catch (InvalidKeyException e) {
+            e.printStackTrace();
+        } catch (BadPaddingException e) {
+            e.printStackTrace();
+        } catch (NoSuchPaddingException e) {
+            e.printStackTrace();
+        }
         listTransaction = new ArrayList<>();
         homeViewModel.getTextWelcome().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override

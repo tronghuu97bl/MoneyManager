@@ -21,8 +21,15 @@ import com.tth.moneymanager.Database.DbHelper;
 import com.tth.moneymanager.Model.Transaction;
 import com.tth.moneymanager.Model.User;
 
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 public class AddSendReceiveActivity extends AppCompatActivity {
     private EditText editAmount, editDate, editReceipt, editDes;
@@ -49,7 +56,21 @@ public class AddSendReceiveActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_send_receive);
-        initView();
+        try {
+            initView();
+        } catch (BadPaddingException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (IllegalBlockSizeException e) {
+            e.printStackTrace();
+        } catch (NoSuchPaddingException e) {
+            e.printStackTrace();
+        } catch (InvalidKeyException e) {
+            e.printStackTrace();
+        } catch (InvalidKeySpecException e) {
+            e.printStackTrace();
+        }
         btPickDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,7 +92,7 @@ public class AddSendReceiveActivity extends AppCompatActivity {
         });
     }
 
-    public void initView() {
+    public void initView() throws BadPaddingException, NoSuchAlgorithmException, IllegalBlockSizeException, NoSuchPaddingException, InvalidKeyException, InvalidKeySpecException {
         tvWarning = findViewById(R.id.tv_add_tranfer_warning);
         btAdd = findViewById(R.id.button_add_tranfer_add);
         btPickDate = findViewById(R.id.button_add_tranfer_date);

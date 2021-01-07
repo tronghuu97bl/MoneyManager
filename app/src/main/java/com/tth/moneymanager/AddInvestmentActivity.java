@@ -21,11 +21,18 @@ import com.tth.moneymanager.Model.Investment;
 import com.tth.moneymanager.Model.Transaction;
 import com.tth.moneymanager.Model.User;
 
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 public class AddInvestmentActivity extends AppCompatActivity {
     private Button btPickInitDate, btPickFinishDate, btAdd;
@@ -65,7 +72,21 @@ public class AddInvestmentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_investment);
         initView();
         util = new Util(this);
-        currentUser = util.userAuthenLogin();
+        try {
+            currentUser = util.userAuthenLogin();
+        } catch (InvalidKeySpecException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (IllegalBlockSizeException e) {
+            e.printStackTrace();
+        } catch (InvalidKeyException e) {
+            e.printStackTrace();
+        } catch (BadPaddingException e) {
+            e.printStackTrace();
+        } catch (NoSuchPaddingException e) {
+            e.printStackTrace();
+        }
 
         btPickInitDate.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -3,6 +3,7 @@ package com.tth.moneymanager;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +14,18 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.tth.moneymanager.Database.DbHelper;
 import com.tth.moneymanager.Model.User;
+import com.tth.moneymanager.Security.AES;
+import com.tth.moneymanager.Security.RSAUtil;
+
+import net.sqlcipher.database.SQLiteDatabase;
+
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 public class RegisterActivity extends AppCompatActivity {
     private Button button_register;
@@ -26,6 +39,7 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        SQLiteDatabase.loadLibs(this);
         dbHelper = new DbHelper(this);
         button_register = findViewById(R.id.button_rgt);
         tvWarning = findViewById(R.id.tv_warning);
@@ -169,7 +183,32 @@ public class RegisterActivity extends AppCompatActivity {
             super.onPostExecute(user);
             if (user != null) {
                 Util util = new Util(RegisterActivity.this);
-                util.addUserToPreference(user);
+                if (!util.getRSAKey()) {
+                    try {
+                        String[] key = RSAUtil.generateKey();
+                        String privateKey = RSAUtil.base64Encode(AES.encrypt(RSAUtil.base64Decode(key[1]), "helloworld"));
+                        util.setPrivateKey(privateKey);
+                        util.setPublicKey(key[0]);
+                        util.setRSAKey();
+                    } catch (NoSuchAlgorithmException e) {
+                        e.printStackTrace();
+                    }
+                }
+                try {
+                    util.addUserToPreference(user);
+                } catch (InvalidKeySpecException e) {
+                    e.printStackTrace();
+                } catch (NoSuchAlgorithmException e) {
+                    e.printStackTrace();
+                } catch (IllegalBlockSizeException e) {
+                    e.printStackTrace();
+                } catch (InvalidKeyException e) {
+                    e.printStackTrace();
+                } catch (BadPaddingException e) {
+                    e.printStackTrace();
+                } catch (NoSuchPaddingException e) {
+                    e.printStackTrace();
+                }
                 Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);

@@ -18,8 +18,15 @@ import com.tth.moneymanager.R;
 import com.tth.moneymanager.Util;
 import com.tth.moneymanager.adapter.InvestmentAdapter;
 
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 public class InvestmentFragment extends Fragment {
     private List<Investment> listInvestments = new ArrayList<>();
@@ -32,7 +39,21 @@ public class InvestmentFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         investmentViewModel = ViewModelProviders.of(this).get(InvestmentViewModel.class);
         View root = inflater.inflate(R.layout.fragment_investment, container, false);
-        initView();
+        try {
+            initView();
+        } catch (BadPaddingException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (IllegalBlockSizeException e) {
+            e.printStackTrace();
+        } catch (NoSuchPaddingException e) {
+            e.printStackTrace();
+        } catch (InvalidKeyException e) {
+            e.printStackTrace();
+        } catch (InvalidKeySpecException e) {
+            e.printStackTrace();
+        }
         investmentViewModel.getListInvestment(getContext(), currentUser.getId()).observe(getViewLifecycleOwner(), new Observer<List<Investment>>() {
             @Override
             public void onChanged(List<Investment> investments) {
@@ -47,7 +68,7 @@ public class InvestmentFragment extends Fragment {
         return root;
     }
 
-    public void initView() {
+    public void initView() throws BadPaddingException, NoSuchAlgorithmException, IllegalBlockSizeException, NoSuchPaddingException, InvalidKeyException, InvalidKeySpecException {
         util = new Util(getContext());
         currentUser = util.userAuthenLogin();
     }

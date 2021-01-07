@@ -20,8 +20,15 @@ import com.tth.moneymanager.Model.Transaction;
 import com.tth.moneymanager.Model.User;
 import com.tth.moneymanager.adapter.ItemAdapter;
 
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 public class AddShoppingActivity extends AppCompatActivity implements ItemAdapter.GetItem {
     private EditText editPrice, editDate, editShop, editDes, editName;
@@ -49,11 +56,25 @@ public class AddShoppingActivity extends AppCompatActivity implements ItemAdapte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_shopping);
-        initView();
+        try {
+            initView();
+        } catch (BadPaddingException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (IllegalBlockSizeException e) {
+            e.printStackTrace();
+        } catch (NoSuchPaddingException e) {
+            e.printStackTrace();
+        } catch (InvalidKeyException e) {
+            e.printStackTrace();
+        } catch (InvalidKeySpecException e) {
+            e.printStackTrace();
+        }
         SetOnClickListener();
     }
 
-    public void initView() {
+    public void initView() throws BadPaddingException, NoSuchAlgorithmException, IllegalBlockSizeException, NoSuchPaddingException, InvalidKeyException, InvalidKeySpecException {
         editDate = findViewById(R.id.edit_add_shopping_date);
         editDes = findViewById(R.id.edit_add_shopping_des);
         editName = findViewById(R.id.edit_add_shopping_name);

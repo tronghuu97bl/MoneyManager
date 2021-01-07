@@ -3,8 +3,10 @@ package com.tth.moneymanager.Database;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
+//import android.database.sqlite.SQLiteDatabase;
+import net.sqlcipher.database.SQLiteDatabase;
+//import android.database.sqlite.SQLiteOpenHelper;
+import net.sqlcipher.database.SQLiteOpenHelper;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
@@ -20,8 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DbHelper extends SQLiteOpenHelper {
-    private static final String DB_NAME = "money_manager_db";
-    private static final int DB_VERSION = 15;
+    private static final String DB_NAME = "money_manager";
+    private static final int DB_VERSION = 1;
     //table users
     private static final String TABLE_USERS = "users";
     private static final String USERS_ID = "_id";
@@ -166,7 +168,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     //TABLE USERS QUERY
     public boolean CheckUserExist(String email) { //return true is have user in db
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase("mykey");
         Cursor cursor = db.query(TABLE_USERS, new String[]{USERS_ID, USERS_EMAIL}, USERS_EMAIL + "=?", new String[]{email}, null, null, null);
         if (cursor != null) {
             if (cursor.moveToFirst()) {
@@ -191,7 +193,7 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
     public long addUser(User user) {
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase("mykey");
         ContentValues cv = new ContentValues();
         cv.put(USERS_EMAIL, user.getEmail());
         cv.put(USERS_PASS, user.getPassword());
@@ -208,7 +210,7 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
     public User getUserById(int id_user) {
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase("mykey");
         User user = new User();
         Cursor cursor = db.query(TABLE_USERS, null, USERS_ID + "=?", new String[]{String.valueOf(id_user)}, null, null, null);
         if (cursor != null) {
@@ -230,7 +232,7 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
     public User userLogin(String email, String pass) {
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase("mykey");
         Cursor cursor = db.query(TABLE_USERS, null, USERS_EMAIL + "=? AND " + USERS_PASS + "=?", new String[]{email, pass}, null, null, null);
         if (cursor != null) {
             if (cursor.moveToFirst()) {
@@ -260,7 +262,7 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
     public void updateRemainedAmount(int userId, double money) {//money maybe + or -
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase("mykey");
         Cursor cursor = db.query(TABLE_USERS, new String[]{USERS_AMOUNT}, USERS_ID + "=?", new String[]{String.valueOf(userId)}, null, null, null);
         if (cursor != null) {
             if (cursor.moveToFirst()) {
@@ -277,7 +279,7 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
     public void updateRemainedDebt(int userId, double money) {//money maybe + or -
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase("mykey");
         Cursor cursor = db.query(TABLE_USERS, new String[]{USERS_DEBT}, USERS_ID + "=?", new String[]{String.valueOf(userId)}, null, null, null);
         if (cursor != null) {
             if (cursor.moveToFirst()) {
@@ -295,7 +297,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     //TABLE SHOPPING QUERY
     public long addShopping(Shopping shopping) {
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase("mykey");
         ContentValues cv = new ContentValues();
         cv.put(SHOPPING_USER_ID, shopping.getUser_id());
         cv.put(SHOPPING_TRANSACTION_ID, shopping.getTransaction_id());
@@ -310,7 +312,7 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
     public List<Shopping> getListShopping_DatePrice(int userId) {
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase("mykey");
         List<Shopping> listShopping = new ArrayList<>();
         Cursor cursor = db.query(TABLE_SHOPPING, new String[]{SHOPPING_DATE, SHOPPING_PRICE},
                 SHOPPING_USER_ID + "=?", new String[]{String.valueOf(userId)}, null, null, null);
@@ -333,7 +335,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     //TABLE TRANSACTION QUERY
     public long addTransaction(Transaction transaction) {
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase("mykey");
         ContentValues cv = new ContentValues();
         cv.put(TRAN_AMOUNT, transaction.getAmount());
         cv.put(TRAN_DATE, transaction.getDate());
@@ -346,7 +348,7 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
     public List<Transaction> getListTransaction(int userId) {
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase("mykey");
         List<Transaction> listTransaction = new ArrayList<>();
         Cursor cursor = db.query(TABLE_TRANS, null, TRAN_USER_ID + "=?", new String[]{String.valueOf(userId)}, null, null, TRAN_ID + " DESC");
         if (cursor != null) {
@@ -372,7 +374,7 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
     public List<Transaction> getListTransaction(String type, int userId) {
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase("mykey");
         List<Transaction> transactions = new ArrayList<>();
         Cursor cursor = db.query(TABLE_TRANS, null, TRAN_TYPE + "=? AND " + TRAN_USER_ID + "=?",
                 new String[]{type, String.valueOf(userId)}, null, null, null);
@@ -399,7 +401,7 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
     public List<Transaction> getListTransaction(String type, int userId, Double min) {
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase("mykey");
         List<Transaction> transactions = new ArrayList<>();
         Cursor cursor = db.query(TABLE_TRANS, null, TRAN_TYPE + "=? AND " + TRAN_USER_ID + "=?",
                 new String[]{type, String.valueOf(userId)}, null, null, null);
@@ -431,7 +433,7 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
     public List<Transaction> getListTransaction(int userId, Double min) {
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase("mykey");
         List<Transaction> transactions = new ArrayList<>();
         Cursor cursor = db.query(TABLE_TRANS, null, TRAN_USER_ID + "=?",
                 new String[]{String.valueOf(userId)}, null, null, null);
@@ -464,7 +466,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     //TABLE LOAN QUERY
     public long addLoan(Loan loan) {
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase("mykey");
         ContentValues cv = new ContentValues();
         cv.put(LOANS_USER_ID, loan.getUser_id());
         cv.put(LOANS_TRAN_ID, loan.getTransaction_id());
@@ -480,7 +482,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     public List<Loan> getListLoan(int userId) {
         List<Loan> listLoan = new ArrayList<>();
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase("mykey");
         Cursor cursor = db.query(TABLE_LOANS, null, LOANS_USER_ID + "=?", new String[]{String.valueOf(userId)}, null, null, null);
         if (cursor != null) {
             while (cursor.moveToNext()) {
@@ -508,7 +510,7 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
     public void updateRemainedAmountLoan(int loanId, double money) {
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase("mykey");
         Cursor cursor = db.query(TABLE_LOANS, new String[]{LOANS_REMAIN_AMOUNT}, LOANS_USER_ID + "=?",
                 new String[]{String.valueOf(loanId)}, null, null, null);
         if (cursor != null) {
@@ -526,7 +528,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     //TABLE INVESTMENT QUERY
     public long addInvestment(Investment investment) {
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase("mykey");
         ContentValues cv = new ContentValues();
         cv.put(INVEST__TRAN_ID, investment.getTransaction_id());
         cv.put(INVEST_AMOUNT, investment.getAmount());
@@ -540,7 +542,7 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
     public List<Investment> getListInvestment(int userId) {
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase("mykey");
         List<Investment> listInvestment = new ArrayList<>();
         Cursor cursor = db.query(TABLE_INVESTMENT, null, INVEST_USER_ID + "=?", new String[]{String.valueOf(userId)}, null, null, null);
         if (cursor != null) {
@@ -568,7 +570,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     //TABLE ITEMS QUERY
     public long addItem(Item item) {
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase("mykey");
         ContentValues cv = new ContentValues();
         cv.put(ITEM_NAME, item.getName());
         cv.put(ITEM_IMAGE_URL, item.getImage_url());
@@ -580,7 +582,7 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
     public List<Item> getListItem() {
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase("mykey");
         List<Item> listItem = new ArrayList<>();
         Cursor cursor = db.query(TABLE_ITEM, null, null, null, null, null, null);
         if (cursor != null) {
@@ -603,7 +605,7 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
     public List<Item> getListItemByName(String name) {
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase("mykey");
         List<Item> listItem = new ArrayList<>();
         Cursor cursor = db.query(TABLE_ITEM, null, ITEM_NAME + "=?", new String[]{name}, null, null, null);
         if (cursor != null) {

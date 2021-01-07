@@ -1,10 +1,5 @@
 package com.tth.moneymanager;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.biometric.BiometricPrompt;
-import androidx.core.content.ContextCompat;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -14,11 +9,27 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.biometric.BiometricPrompt;
+import androidx.core.content.ContextCompat;
+
 import com.tth.moneymanager.Database.DbHelper;
 import com.tth.moneymanager.Helper.CommonHelper;
 import com.tth.moneymanager.Model.User;
+import com.tth.moneymanager.Security.AES;
+import com.tth.moneymanager.Security.RSAUtil;
 
+import net.sqlcipher.database.SQLiteDatabase;
+
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.concurrent.Executor;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 public class LoginActivity extends AppCompatActivity {
     private Button login;
@@ -36,6 +47,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        SQLiteDatabase.loadLibs(this);
         util = new Util(this);
         db = new DbHelper(this);
         login = findViewById(R.id.login);
@@ -56,7 +68,32 @@ public class LoginActivity extends AppCompatActivity {
                     tv_warning.setVisibility(View.GONE);
                     User user = db.userLogin(email, pass);
                     if (user != null) {
-                        util.addUserToPreference(user);
+                        if (!util.getRSAKey()) {
+                            try {
+                                String[] key = RSAUtil.generateKey();
+                                String privateKey = RSAUtil.base64Encode(AES.encrypt(RSAUtil.base64Decode(key[1]), "helloworld"));
+                                util.setPrivateKey(privateKey);
+                                util.setPublicKey(key[0]);
+                                util.setRSAKey();
+                            } catch (NoSuchAlgorithmException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        try {
+                            util.addUserToPreference(user);
+                        } catch (InvalidKeySpecException e) {
+                            e.printStackTrace();
+                        } catch (NoSuchAlgorithmException e) {
+                            e.printStackTrace();
+                        } catch (IllegalBlockSizeException e) {
+                            e.printStackTrace();
+                        } catch (InvalidKeyException e) {
+                            e.printStackTrace();
+                        } catch (BadPaddingException e) {
+                            e.printStackTrace();
+                        } catch (NoSuchPaddingException e) {
+                            e.printStackTrace();
+                        }
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);

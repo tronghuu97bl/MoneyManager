@@ -1,10 +1,7 @@
 package com.tth.moneymanager;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -12,7 +9,14 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.tth.moneymanager.Security.AES;
+import com.tth.moneymanager.Security.RSAUtil;
+
+import java.security.NoSuchAlgorithmException;
+
 public class MainActivity extends AppCompatActivity {
+    //private Util util;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
+        //util = new Util(this);
 
+    }
 }

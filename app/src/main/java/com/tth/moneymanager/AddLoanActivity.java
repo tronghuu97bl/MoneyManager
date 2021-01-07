@@ -21,11 +21,18 @@ import com.tth.moneymanager.Model.Loan;
 import com.tth.moneymanager.Model.Transaction;
 import com.tth.moneymanager.Model.User;
 
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 public class AddLoanActivity extends AppCompatActivity {
 
@@ -64,11 +71,25 @@ public class AddLoanActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_loan);
-        intiView();
+        try {
+            intiView();
+        } catch (BadPaddingException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (IllegalBlockSizeException e) {
+            e.printStackTrace();
+        } catch (NoSuchPaddingException e) {
+            e.printStackTrace();
+        } catch (InvalidKeyException e) {
+            e.printStackTrace();
+        } catch (InvalidKeySpecException e) {
+            e.printStackTrace();
+        }
         setOnClickListener();
     }
 
-    public void intiView() {
+    public void intiView() throws BadPaddingException, NoSuchAlgorithmException, IllegalBlockSizeException, NoSuchPaddingException, InvalidKeyException, InvalidKeySpecException {
         warning = findViewById(R.id.tv_add_loan_warning);
         editAmount = findViewById(R.id.edit_add_loan_initial_amount);
         editFinishDate = findViewById(R.id.edit_add_loan_finish_date);
